@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Engineer Learning Roadmap</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        :root {
+            --bg: #0a0a0f;
+            --bg-elevated: #12121a;
+            --card: #16161f;
+            --card-hover: #1c1c28;
+            --accent: #7c6aff;
+            --accent-glow: rgba(124, 106, 255, 0.3);
+            --accent-subtle: rgba(124, 106, 255, 0.08);
+            --green: #22c55e;
+            --green-glow: rgba(34, 197, 94, 0.3);
+            --green-subtle: rgba(34, 197, 94, 0.08);
+            --orange: #f59e0b;
+            --orange-subtle: rgba(245, 158, 11, 0.08);
+            --red: #ef4444;
+            --cyan: #06b6d4;
+            --cyan-subtle: rgba(6, 182, 212, 0.08);
+            --pink: #ec4899;
+            --text: #f0f0f5;
+            --text-secondary: #a0a0b8;
+            --text-muted: #6b6b80;
+            --border: #222233;
+            --border-light: #2a2a3d;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --shadow: 0 4px 24px rgba(0,0,0,0.3);
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection { background: var(--accent); color: white; }
+
+        /* ═══════════ LAYOUT ═══════════ */
+        .layout {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 900px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .sidebar.mobile-open { display: flex; position: fixed; z-index: 100; top: 0; left: 0; right: 0; bottom: 0; width: 100%; }
+            .mobile-nav { display: flex !important; }
+        }
+
+        /* ═══════════ SIDEBAR ═══════════ */
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            background: var(--bg-elevated);
+            border-right: 1px solid var(--border);
+            padding: 28px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow-y: auto;
+        }
+
+        .sidebar-brand {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            padding: 0 12px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-brand strong {
+            display: block;
+            font-size: 1.05rem;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--text);
+            margin-top: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover { background: var(--accent-subtle); color: var(--text); }
+        .nav-item.active { background: var(--accent-subtle); color: var(--accent); border-color: rgba(124,106,255,0.15); }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .nav-item.active .nav-dot { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow); }
+        .nav-item.nav-completed .nav-dot { background: var(--green); box-shadow: 0 0 8px var(--green-glow); }
+
+        .nav-divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+        .sidebar-section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            padding: 12px 12px 4px;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ═══════════ MOBILE NAV ═══════════ */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border);
+            padding: 8px 12px;
+            z-index: 90;
+            justify-content: space-around;
+            gap: 4px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .mobile-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .mobile-nav a.active { color: var(--accent); background: var(--accent-subtle); }
+        .mobile-nav-icon { font-size: 1.1rem; }
+
+        /* ═══════════ MAIN CONTENT ═══════════ */
+        .main {
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        @media (max-width: 900px) {
+            .main { padding-bottom: 70px; }
+        }
+
+        /* ═══════════ HERO ═══════════ */
+        .hero {
+            background: linear-gradient(135deg, #12121a 0%, #1a1232 40%, #0f1d3a 70%, #12121a 100%);
+            padding: 60px 40px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content { max-width: 700px; position: relative; z-index: 1; }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #7c6aff, #06b6d4, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p { color: var(--text-secondary); font-size: 1.05rem; max-width: 520px; }
+
+        .hero-badges {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* ═══════════ DASHBOARD ═══════════ */
+        .content-area { max-width: 800px; margin: 0 auto; padding: 32px 32px 60px; }
+
+        @media (max-width: 600px) { .content-area { padding: 20px 16px 60px; } }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 600px) { .dashboard { grid-template-columns: repeat(2, 1fr); } }
+
+        .dash-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .dash-card:hover { border-color: var(--border-light); transform: translateY(-1px); }
+
+        .dash-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .dash-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .dash-value.v-accent { color: var(--accent); }
+        .dash-value.v-green { color: var(--green); }
+        .dash-value.v-orange { color: var(--orange); }
+        .dash-value.v-cyan { color: var(--cyan); }
+
+        /* Main progress bar */
+        .main-progress {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            margin-bottom: 32px;
+        }
+
+        .main-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .main-progress-header span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .main-progress-bar {
+            height: 10px;
+            background: var(--bg);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .main-progress-fill {
+            height: 100%;
+            border-radius: 100px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan));
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+            position: relative;
+        }
+
+        .main-progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .phase-progress-dots {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding: 0 2px;
+        }
+
+        .phase-dot-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .phase-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            transition: var(--transition);
+        }
+
+        .phase-dot.dot-completed { background: var(--green); border-color: var(--green); }
+        .phase-dot.dot-active { border-color: var(--accent); animation: pulse-dot 2s infinite; }
+
+        @keyframes pulse-dot {
+            0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+            50% { box-shadow: 0 0 0 6px transparent; }
+        }
+
+        .phase-dot-label { font-size: 0.6rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ═══════════ STUDY TIMER ═══════════ */
+        .timer-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .timer-left { display: flex; align-items: center; gap: 14px; }
+
+        .timer-display {
+            font-size: 2rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            min-width: 110px;
+        }
+
+        .timer-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .timer-label strong { color: var(--text-secondary); }
+
+        .timer-btns { display: flex; gap: 8px; }
+
+        .btn {
+            padding: 8px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover { border-color: var(--accent); background: var(--accent-subtle); }
+
+        .btn-primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover { background: #6b59ee; box-shadow: 0 0 20px var(--accent-glow); }
+
+        .btn-danger { border-color: var(--red); color: var(--red); }
+        .btn-danger:hover { background: rgba(239,68,68,0.1); }
+
+        .timer-streak {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--orange-subtle);
+            border: 1px solid rgba(245,158,11,0.2);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--orange);
+        }
+
+        /* ═══════════ PHASES ═══════════ */
+        .phase-section {
+            margin-bottom: 10px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 20px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase-header:hover { border-color: var(--border-light); }
+
+        .phase-header.expanded { border-radius: var(--radius) var(--radius) 0 0; border-bottom-color: transparent; }
+
+        .phase-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .pi-1 { background: rgba(124,106,255,0.15); color: var(--accent); }
+        .pi-2 { background: rgba(34,197,94,0.15); color: var(--green); }
+        .pi-3 { background: rgba(245,158,11,0.15); color: var(--orange); }
+        .pi-4 { background: rgba(6,182,212,0.15); color: var(--cyan); }
+
+        .phase-header-info { flex: 1; }
+        .phase-header-title { font-size: 1.05rem; font-weight: 700; }
+
+        .phase-header-meta {
+            display: flex;
+            gap: 14px;
+            margin-top: 3px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .phase-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .phase-badge-count {
+            font-size: 0.72rem;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-weight: 600;
+            background: var(--green-subtle);
+            color: var(--green);
+            white-space: nowrap;
+        }
+
+        .phase-badge-count.empty { background: var(--accent-subtle); color: var(--text-muted); }
+
+        .phase-chevron {
+            color: var(--text-muted);
+            transition: transform var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .phase-header.expanded .phase-chevron { transform: rotate(180deg); }
+
+        .phase-body {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 var(--radius) var(--radius);
+            padding: 0 20px 20px;
+            display: none;
+        }
+
+        .phase-body.open { display: block; }
+
+        .phase-goal {
+            padding: 14px 16px;
+            margin: 16px 0;
+            border-radius: var(--radius-sm);
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            border-left: 3px solid;
+        }
+
+        .pg-1 { background: var(--accent-subtle); border-color: var(--accent); }
+        .pg-2 { background: var(--green-subtle); border-color: var(--green); }
+        .pg-3 { background: var(--orange-subtle); border-color: var(--orange); }
+        .pg-4 { background: var(--cyan-subtle); border-color: var(--cyan); }
+
+        /* ═══════════ WEEK BLOCKS ═══════════ */
+        .week-block {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 18px 18px 14px;
+            margin-bottom: 10px;
+        }
+
+        .week-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .week-title h4 { font-size: 0.92rem; font-weight: 700; }
+
+        .tag {
+            font-size: 0.65rem;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .tag-free { background: var(--green-subtle); color: var(--green); }
+        .tag-paid { background: var(--orange-subtle); color: var(--orange); }
+        .tag-skip { background: rgba(239,68,68,0.1); color: var(--red); }
+        .tag-pick { background: var(--cyan-subtle); color: var(--cyan); }
+
+        /* ═══════════ COURSE ITEMS ═══════════ */
+        .course-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .course-item:hover { background: rgba(255,255,255,0.02); }
+
+        .course-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-light);
+            border-radius: 6px;
+            flex-shrink: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            margin-top: 1px;
+        }
+
+        .course-check:hover { border-color: var(--accent); }
+
+        .course-check.done {
+            background: var(--green);
+            border-color: var(--green);
+            animation: checkPop 0.3s ease;
+        }
+
+        @keyframes checkPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        .course-check.done::after {
+            content: '';
+            width: 5px;
+            height: 9px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translateY(-1px);
+        }
+
+        .course-body { flex: 1; min-width: 0; }
+
+        .course-title {
+            font-weight: 600;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .course-title a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .course-title a:hover { color: var(--accent); }
+
+        .course-item.is-done .course-title a,
+        .course-item.is-done .course-title {
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        .course-chips {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            font-size: 0.68rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--bg);
+            color: var(--text-muted);
+            font-weight: 500;
+            border: 1px solid var(--border);
+        }
+
+        .chip-free { color: var(--green); border-color: rgba(34,197,94,0.2); }
+
+        .course-note {
+            margin-top: 6px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .or-divider {
+            text-align: center;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            padding: 4px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Personal notes */
+        .course-notes-toggle {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            margin-top: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: var(--transition);
+        }
+
+        .course-notes-toggle:hover { color: var(--accent); }
+
+        .course-notes-area {
+            display: none;
+            margin-top: 8px;
+        }
+
+        .course-notes-area.open { display: block; }
+
+        .course-notes-area textarea {
+            width: 100%;
+            min-height: 60px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 10px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            resize: vertical;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .course-notes-area textarea:focus { border-color: var(--accent); }
+
+        /* ═══════════ PROJECT BLOCKS ═══════════ */
+        .project-block {
+            background: linear-gradient(135deg, var(--accent-subtle), var(--cyan-subtle));
+            border: 1px dashed rgba(124,106,255,0.3);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+
+        .project-block h4 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .project-list { list-style: none; padding: 0; }
+
+        .project-list li {
+            padding: 4px 0 4px 18px;
+            position: relative;
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+
+        .project-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 6px;
+            height: 6px;
+            border-radius: 2px;
+            background: var(--accent);
+        }
+
+        .project-tip {
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════ INFO GRID ═══════════ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 32px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) { .info-grid { grid-template-columns: 1fr; } }
+
+        .info-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+        }
+
+        .info-card h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-secondary);
+        }
+
+        .info-table { width: 100%; border-collapse: collapse; }
+
+        .info-table th {
+            text-align: left;
+            padding: 8px 0;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-table td {
+            padding: 9px 0;
+            font-size: 0.84rem;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .info-table tr:last-child td {
+            border: none;
+            font-weight: 700;
+            color: var(--green);
+            padding-top: 12px;
+        }
+
+        .free-text { color: var(--green); font-weight: 600; }
+
+        /* ═══════════ RULES ═══════════ */
+        .rules-card {
+            background: linear-gradient(135deg, var(--orange-subtle), rgba(239,68,68,0.05));
+            border: 1px solid rgba(245,158,11,0.2);
+            border-radius: var(--radius);
+            padding: 26px;
+            margin: 24px 0;
+        }
+
+        .rules-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--orange);
+            margin-bottom: 16px;
+        }
+
+        .rules-card ol { padding-left: 18px; }
+
+        .rules-card li {
+            padding: 6px 0;
+            font-size: 0.88rem;
+        }
+
+        .rules-card li strong { color: var(--text); }
+        .rules-card li span { color: var(--text-secondary); }
+
+        /* ═══════════ BADGES ═══════════ */
+        .badges-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-bottom: 24px;
+        }
+
+        .badges-section h3 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .badges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .badge-item.earned {
+            border-color: rgba(245,158,11,0.3);
+            background: var(--orange-subtle);
+        }
+
+        .badge-item.earned .badge-icon { filter: none; transform: scale(1.1); }
+
+        .badge-icon {
+            font-size: 1.6rem;
+            filter: grayscale(1) opacity(0.3);
+            transition: var(--transition);
+        }
+
+        .badge-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            line-height: 1.3;
+        }
+
+        .badge-item.earned .badge-label { color: var(--orange); }
+
+        /* ═══════════ SOURCES ═══════════ */
+        .sources-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            margin-top: 24px;
+        }
+
+        .sources-card summary {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            list-style: none;
+        }
+
+        .sources-card summary::-webkit-details-marker { display: none; }
+        .sources-card summary::before { content: '+ '; }
+        .sources-card[open] summary::before { content: '- '; }
+
+        .sources-list {
+            list-style: none;
+            padding: 12px 0 0;
+        }
+
+        .sources-list li { padding: 3px 0; }
+
+        .sources-list a {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sources-list a:hover { color: var(--accent); }
+
+        /* ═══════════ FOOTER ═══════════ */
+        .page-footer {
+            text-align: center;
+            padding: 32px 20px;
+            border-top: 1px solid var(--border);
+            margin-top: 40px;
+        }
+
+        .page-footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════ TOAST ═══════════ */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--green);
+            color: white;
+            padding: 10px 22px;
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            box-shadow: 0 8px 32px rgba(34,197,94,0.4);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            white-space: nowrap;
+        }
+
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ═══════════ START DATE PICKER ═══════════ */
+        .start-date-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 22px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .start-date-section label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .start-date-section input[type="date"] {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.82rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .start-date-section input[type="date"]:focus { border-color: var(--accent); }
+
+        .deadline-display {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .deadline-display strong { color: var(--text-secondary); }
+
+        /* Pace selector */
+        .pace-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .pace-btn {
+            padding: 5px 12px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .pace-btn.active { background: var(--accent-subtle); color: var(--accent); border-color: rgba(124,106,255,0.3); }
+
+        /* ═══════════ HOURS TRACKER ═══════════ */
+        .hours-tracker {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.82rem;
+        }
+
+        .hours-circle {
+            width: 52px;
+            height: 52px;
+            position: relative;
+        }
+
+        .hours-circle svg {
+            transform: rotate(-90deg);
+            width: 52px;
+            height: 52px;
+        }
+
+        .hours-circle-bg { fill: none; stroke: var(--border); stroke-width: 4; }
+        .hours-circle-fill { fill: none; stroke: var(--cyan); stroke-width: 4; stroke-linecap: round; transition: stroke-dashoffset 0.6s ease; }
+
+        .hours-circle-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+    </style>
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            Roadmap
+            <strong>AI Engineer</strong>
+        </div>
+
+        <div class="sidebar-section-label">Phases</div>
+        <a class="nav-item active" href="#phase-1" data-nav="phase-1" onclick="scrollToPhase('phase-1')">
+            <span class="nav-dot"></span> Foundations
+        </a>
+        <a class="nav-item" href="#phase-2" data-nav="phase-2" onclick="scrollToPhase('phase-2')">
+            <span class="nav-dot"></span> Core Skills
+        </a>
+        <a class="nav-item" href="#phase-3" data-nav="phase-3" onclick="scrollToPhase('phase-3')">
+            <span class="nav-dot"></span> AI Agents
+        </a>
+        <a class="nav-item" href="#phase-4" data-nav="phase-4" onclick="scrollToPhase('phase-4')">
+            <span class="nav-dot"></span> Level Up
+        </a>
+
+        <div class="nav-divider"></div>
+        <div class="sidebar-section-label">Tools</div>
+        <a class="nav-item" href="#timer-section" onclick="scrollToPhase('timer-section')">
+            <span class="nav-dot"></span> Study Timer
+        </a>
+        <a class="nav-item" href="#badges-section" onclick="scrollToPhase('badges-section')">
+            <span class="nav-dot"></span> Badges
+        </a>
+        <a class="nav-item" href="#info-section" onclick="scrollToPhase('info-section')">
+            <span class="nav-dot"></span> Cost & Time
+        </a>
+
+        <div class="sidebar-footer">
+            <div class="hours-tracker" id="hoursTracker">
+                <div class="hours-circle">
+                    <svg viewBox="0 0 52 52">
+                        <circle class="hours-circle-bg" cx="26" cy="26" r="22"/>
+                        <circle class="hours-circle-fill" cx="26" cy="26" r="22" id="hoursCircle"
+                            stroke-dasharray="138.2"
+                            stroke-dashoffset="138.2"/>
+                    </svg>
+                    <span class="hours-circle-text" id="hoursPercent">0%</span>
+                </div>
+                <div>
+                    <div style="font-weight:700;color:var(--text)"><span id="hoursDone">0</span>h logged</div>
+                    <div style="font-size:0.72rem;color:var(--text-muted)">of ~65h total</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- HERO -->
+        <header class="hero">
+            <div class="hero-content">
+                <h1>Your Path to <span>AI Engineer</span></h1>
+                <p>A hands-on 6-month roadmap. No heavy math. Real projects. Track everything in one place.</p>
+                <div class="hero-badges">
+                    <span class="hero-badge">6 months</span>
+                    <span class="hero-badge">Hands-on</span>
+                    <span class="hero-badge">$50-280 total</span>
+                    <span class="hero-badge">No heavy math</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-area">
+
+            <!-- DASHBOARD STATS -->
+            <div class="dashboard">
+                <div class="dash-card">
+                    <div class="dash-value v-accent" id="statCompleted">0</div>
+                    <div class="dash-label">Completed</div>
+                </div>
+                <div class="dash-card">
+                    <div class="dash-value v-green" id="statPercent">0%</div>
+                    <div class="dash-label">Progress</div>
+                </div>
+                <div class="dash-card">
+                    <div class="dash-value v-orange" id="statStreak">0</div>
+                    <div class="dash-label">Day Streak</div>
+                </div>
+                <div class="dash-card">
+                    <div class="dash-value v-cyan" id="statHours">0h</div>
+                    <div class="dash-label">Studied</div>
+                </div>
+            </div>
+
+            <!-- PROGRESS BAR -->
+            <div class="main-progress">
+                <div class="main-progress-header">
+                    <span>Overall Progress</span>
+                    <span id="progressText">0 / 0 items</span>
+                </div>
+                <div class="main-progress-bar">
+                    <div class="main-progress-fill" id="progressFill"></div>
+                </div>
+                <div class="phase-progress-dots">
+                    <div class="phase-dot-group">
+                        <div class="phase-dot" id="phaseDot1"></div>
+                        <span class="phase-dot-label">P1</span>
+                    </div>
+                    <div class="phase-dot-group">
+                        <div class="phase-dot" id="phaseDot2"></div>
+                        <span class="phase-dot-label">P2</span>
+                    </div>
+                    <div class="phase-dot-group">
+                        <div class="phase-dot" id="phaseDot3"></div>
+                        <span class="phase-dot-label">P3</span>
+                    </div>
+                    <div class="phase-dot-group">
+                        <div class="phase-dot" id="phaseDot4"></div>
+                        <span class="phase-dot-label">P4</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- START DATE & PACE -->
+            <div class="start-date-section">
+                <div>
+                    <label>Start date</label>
+                    <input type="date" id="startDate" onchange="updateDeadline()">
+                </div>
+                <div class="pace-btns">
+                    <button class="pace-btn" data-pace="relaxed" onclick="setPace('relaxed')">Relaxed (10mo)</button>
+                    <button class="pace-btn active" data-pace="normal" onclick="setPace('normal')">Normal (6mo)</button>
+                    <button class="pace-btn" data-pace="intense" onclick="setPace('intense')">Intense (3mo)</button>
+                </div>
+                <div class="deadline-display" id="deadlineDisplay">Set a start date to see your timeline</div>
+            </div>
+
+            <!-- STUDY TIMER -->
+            <div class="timer-section" id="timer-section">
+                <div class="timer-left">
+                    <div class="timer-display" id="timerDisplay">25:00</div>
+                    <div class="timer-label">
+                        <strong>Pomodoro Timer</strong><br>
+                        Study in focused 25-min blocks
+                    </div>
+                </div>
+                <div class="timer-btns">
+                    <button class="btn btn-primary" id="timerStartBtn" onclick="toggleTimer()">Start</button>
+                    <button class="btn btn-danger" onclick="resetTimer()">Reset</button>
+                </div>
+                <div class="timer-streak" id="timerStreak">
+                    <span>Today: </span>
+                    <strong id="pomodorosToday">0</strong>
+                    <span> sessions</span>
+                </div>
+            </div>
+
+            <!-- BADGES -->
+            <div class="badges-section" id="badges-section">
+                <h3>Achievement Badges</h3>
+                <div class="badges-grid" id="badgesGrid">
+                    <div class="badge-item" data-badge="first-check">
+                        <span class="badge-icon">&#127919;</span>
+                        <span class="badge-label">First Step</span>
+                    </div>
+                    <div class="badge-item" data-badge="phase-1-done">
+                        <span class="badge-icon">&#128218;</span>
+                        <span class="badge-label">Foundations Complete</span>
+                    </div>
+                    <div class="badge-item" data-badge="phase-2-done">
+                        <span class="badge-icon">&#9889;</span>
+                        <span class="badge-label">Core Skills Done</span>
+                    </div>
+                    <div class="badge-item" data-badge="first-project">
+                        <span class="badge-icon">&#128640;</span>
+                        <span class="badge-label">First Project Built</span>
+                    </div>
+                    <div class="badge-item" data-badge="phase-3-done">
+                        <span class="badge-icon">&#129302;</span>
+                        <span class="badge-label">Agent Master</span>
+                    </div>
+                    <div class="badge-item" data-badge="phase-4-done">
+                        <span class="badge-icon">&#127942;</span>
+                        <span class="badge-label">Roadmap Complete</span>
+                    </div>
+                    <div class="badge-item" data-badge="streak-7">
+                        <span class="badge-icon">&#128293;</span>
+                        <span class="badge-label">7-Day Streak</span>
+                    </div>
+                    <div class="badge-item" data-badge="ten-hours">
+                        <span class="badge-icon">&#9203;</span>
+                        <span class="badge-label">10 Hours Logged</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════ PHASE 1 ═══════ -->
+            <div class="phase-section" id="phase-1">
+                <div class="phase-header expanded" onclick="togglePhase(this)">
+                    <div class="phase-icon pi-1">1</div>
+                    <div class="phase-header-info">
+                        <div class="phase-header-title">Foundations</div>
+                        <div class="phase-header-meta">
+                            <span>Weeks 1-4</span>
+                            <span>3 courses</span>
+                            <span>~16.5 hours</span>
+                        </div>
+                    </div>
+                    <div class="phase-header-right">
+                        <span class="phase-badge-count empty" id="phase1Count">0 / 3</span>
+                        <span class="phase-chevron">&#9662;</span>
+                    </div>
+                </div>
+                <div class="phase-body open" data-phase="1">
+                    <div class="phase-goal pg-1">Get comfortable with Python for AI and understand how generative AI actually works.</div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 1-2: Python Refresher</h4>
+                            <span class="tag tag-skip">Skip if you know Python</span>
+                        </div>
+                        <div class="course-item" data-course="python-ztm">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://zerotomastery.io/courses/learn-python/" target="_blank" rel="noopener">Python for Developers - Zero to Mastery</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">ZTM</span>
+                                    <span class="chip">~10 hours</span>
+                                    <span class="chip">~$39/mo</span>
+                                </div>
+                                <div class="course-note">Project-heavy, moves fast. Designed for devs who already code in other languages.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes about this course..." data-note="python-ztm" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 3: How AI & LLMs Work (No Math)</h4>
+                            <span class="tag tag-free">Free</span>
+                        </div>
+                        <div class="course-item" data-course="genai-everyone">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/courses/generative-ai-for-everyone/" target="_blank" rel="noopener">Generative AI for Everyone - Andrew Ng</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI / Coursera</span>
+                                    <span class="chip">~5 hours</span>
+                                    <span class="chip chip-free">Free to audit</span>
+                                </div>
+                                <div class="course-note">Gives you the mental model of how LLMs work, what they can/can't do. No equations.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="genai-everyone" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 4: Prompt Engineering for Developers</h4>
+                            <span class="tag tag-free">Free</span>
+                        </div>
+                        <div class="course-item" data-course="prompt-eng">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/" target="_blank" rel="noopener">ChatGPT Prompt Engineering for Developers</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI</span>
+                                    <span class="chip">~1.5 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-note">Universally recommended starting point. Code along in the browser.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="prompt-eng" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════ PHASE 2 ═══════ -->
+            <div class="phase-section" id="phase-2">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div class="phase-icon pi-2">2</div>
+                    <div class="phase-header-info">
+                        <div class="phase-header-title">Core AI Engineering Skills</div>
+                        <div class="phase-header-meta">
+                            <span>Weeks 5-10</span>
+                            <span>6 items</span>
+                            <span>~12.5 hours + project</span>
+                        </div>
+                    </div>
+                    <div class="phase-header-right">
+                        <span class="phase-badge-count empty" id="phase2Count">0 / 6</span>
+                        <span class="phase-chevron">&#9662;</span>
+                    </div>
+                </div>
+                <div class="phase-body" data-phase="2">
+                    <div class="phase-goal pg-2">Learn to actually build things with LLMs. This is where it gets exciting.</div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 5-6: LangChain + Building LLM Apps</h4>
+                            <span class="tag tag-free">Free</span>
+                        </div>
+                        <div class="course-item" data-course="langchain-llm">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/langchain-for-llm-application-development/" target="_blank" rel="noopener">LangChain for LLM Application Development</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI</span>
+                                    <span class="chip">~1.5 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="langchain-llm" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="course-item" data-course="functions-tools">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/functions-tools-agents-langchain/" target="_blank" rel="noopener">Functions, Tools and Agents with LangChain</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI</span>
+                                    <span class="chip">~1.5 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="functions-tools" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="course-item" data-course="chatgpt-api">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/building-systems-with-chatgpt/" target="_blank" rel="noopener">Building Systems with the ChatGPT API</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI</span>
+                                    <span class="chip">~1.5 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-note">These 3 short courses are Reddit favorites - short, practical, code-along in browser.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="chatgpt-api" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 7-8: RAG (Retrieval-Augmented Generation)</h4>
+                            <span class="tag tag-free">Free + Paid</span>
+                        </div>
+                        <div class="course-item" data-course="langchain-data">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/langchain-chat-with-your-data/" target="_blank" rel="noopener">LangChain: Chat with Your Data</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI</span>
+                                    <span class="chip">~1.5 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-note">Deep dive into RAG: document loaders, text splitters, vector stores, retrieval chains.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="langchain-data" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="course-item" data-course="datacamp-rag">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.datacamp.com/courses/retrieval-augmented-generation-rag-with-langchain" target="_blank" rel="noopener">Build RAG Systems with LangChain</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DataCamp</span>
+                                    <span class="chip">~3 hours</span>
+                                    <span class="chip">~$39/mo</span>
+                                </div>
+                                <div class="course-note">Hands-on exercises with real-world projects. Covers evaluation with LangSmith.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="datacamp-rag" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-block">
+                        <h4>Week 9-10: Build Your First Project</h4>
+                        <ul class="project-list">
+                            <li>Build a RAG chatbot that answers questions about a set of documents (PDFs, web pages)</li>
+                            <li>Use everything you learned in weeks 5-8</li>
+                            <li>Add a simple UI with Gradio or Streamlit</li>
+                            <li>Deploy it somewhere (even localhost counts to start)</li>
+                            <li>Put it on GitHub with a good README</li>
+                        </ul>
+                        <div class="project-tip">A working project beats any certificate. This is your proof you can build.</div>
+                        <div style="margin-top:14px">
+                            <div class="course-item" data-course="project-1">
+                                <div class="course-check" onclick="toggleCourse(this)"></div>
+                                <div class="course-body">
+                                    <div class="course-title">First RAG project completed and on GitHub</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════ PHASE 3 ═══════ -->
+            <div class="phase-section" id="phase-3">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div class="phase-icon pi-3">3</div>
+                    <div class="phase-header-info">
+                        <div class="phase-header-title">AI Agents - The Hot Skill</div>
+                        <div class="phase-header-meta">
+                            <span>Weeks 11-16</span>
+                            <span>5 items</span>
+                            <span>~13.5-23.5h + project</span>
+                        </div>
+                    </div>
+                    <div class="phase-header-right">
+                        <span class="phase-badge-count empty" id="phase3Count">0 / 5</span>
+                        <span class="phase-chevron">&#9662;</span>
+                    </div>
+                </div>
+                <div class="phase-body" data-phase="3">
+                    <div class="phase-goal pg-3">Learn to build AI agents - this is where the job market is heading in 2026.</div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 11-12: Agent Fundamentals</h4>
+                            <span class="tag tag-free">Free</span>
+                        </div>
+                        <div class="course-item" data-course="rag-agents">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">Building RAG Agents with LLMs</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI / NVIDIA</span>
+                                    <span class="chip">~2 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="rag-agents" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="course-item" data-course="crewai">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.deeplearning.ai/short-courses/" target="_blank" rel="noopener">Multi AI Agent Systems with CrewAI</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">DeepLearning.AI</span>
+                                    <span class="chip">~1.5 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-note">Taught by CrewAI's founder. Reddit rates it highly for understanding multi-agent systems.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="crewai" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 13-14: Deep Dive - Agent Frameworks</h4>
+                            <span class="tag tag-pick">Pick one</span>
+                        </div>
+                        <div class="course-item" data-course="coursera-agents">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.coursera.org/learn/agentic-ai-with-langgraph-crewai-autogen-and-beeai" target="_blank" rel="noopener">Agentic AI with LangGraph, CrewAI, AutoGen and BeeAI</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">Coursera</span>
+                                    <span class="chip">~10 hours</span>
+                                    <span class="chip chip-free">Free to audit</span>
+                                </div>
+                                <div class="course-note">Covers all major agent frameworks in one course. Good structured overview.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="coursera-agents" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="or-divider">or</div>
+                        <div class="course-item" data-course="udemy-agents">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.udemy.com/course/2025-bootcamp-understand-and-build-professional-ai-agents/" target="_blank" rel="noopener">2026 Bootcamp: Build Professional AI Agents</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">Udemy</span>
+                                    <span class="chip">~20 hours</span>
+                                    <span class="chip">~$15-20 on sale</span>
+                                </div>
+                                <div class="course-note">45,000+ students from 154 countries. Intensive bootcamp with real projects.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="udemy-agents" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-block">
+                        <h4>Week 15-16: Build Your Agent Project</h4>
+                        <ul class="project-list">
+                            <li>Build a multi-agent system (e.g., research assistant that searches, summarizes, writes reports)</li>
+                            <li>This becomes your portfolio centerpiece</li>
+                            <li>Deploy it, document it, put it on GitHub</li>
+                            <li>Consider adding MCP (Model Context Protocol) integration</li>
+                        </ul>
+                        <div class="project-tip">This is the project that gets you hired. Make it impressive.</div>
+                        <div style="margin-top:14px">
+                            <div class="course-item" data-course="project-2">
+                                <div class="course-check" onclick="toggleCourse(this)"></div>
+                                <div class="course-body">
+                                    <div class="course-title">Agent project completed and on GitHub</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ═══════ PHASE 4 ═══════ -->
+            <div class="phase-section" id="phase-4">
+                <div class="phase-header" onclick="togglePhase(this)">
+                    <div class="phase-icon pi-4">4</div>
+                    <div class="phase-header-info">
+                        <div class="phase-header-title">Level Up & Position Yourself</div>
+                        <div class="phase-header-meta">
+                            <span>Weeks 17-24</span>
+                            <span>6 items</span>
+                            <span>~15-30h + career tasks</span>
+                        </div>
+                    </div>
+                    <div class="phase-header-right">
+                        <span class="phase-badge-count empty" id="phase4Count">0 / 6</span>
+                        <span class="phase-chevron">&#9662;</span>
+                    </div>
+                </div>
+                <div class="phase-body" data-phase="4">
+                    <div class="phase-goal pg-4">Go deeper, get certified if you want, and start applying for AI roles.</div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 17-19: Advanced Course</h4>
+                            <span class="tag tag-pick">Pick one</span>
+                        </div>
+                        <div class="course-item" data-course="berkeley">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://llmagents-learning.org/f24" target="_blank" rel="noopener">Berkeley's LLM Agents MOOC</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">UC Berkeley</span>
+                                    <span class="chip">~15 hours</span>
+                                    <span class="chip chip-free">Free</span>
+                                </div>
+                                <div class="course-note">Taught by experts from DeepMind, OpenAI, Meta. Reddit calls it "dense, fast-paced, phenomenal."</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="berkeley" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                        <div class="or-divider">or</div>
+                        <div class="course-item" data-course="complete-agentic">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://www.udemy.com/course/the-complete-agentic-ai-engineering-course/" target="_blank" rel="noopener">The Complete Agentic AI Engineering Course</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">Udemy</span>
+                                    <span class="chip">~30 hours</span>
+                                    <span class="chip">~$15-20 on sale</span>
+                                </div>
+                                <div class="course-note">6-week intensive. 8 real-world projects. Covers OpenAI Agents SDK, CrewAI, LangGraph, MCP.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="complete-agentic" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 20-22: Optional Certification</h4>
+                            <span class="tag tag-paid">Paid</span>
+                        </div>
+                        <div class="course-item" data-course="azure-cert">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title"><a href="https://learn.microsoft.com/en-us/training/career-paths/ai-engineer" target="_blank" rel="noopener">Microsoft Azure AI Engineer Associate</a></div>
+                                <div class="course-chips">
+                                    <span class="chip">Microsoft Learn</span>
+                                    <span class="chip">Self-paced</span>
+                                    <span class="chip">~$165 exam</span>
+                                </div>
+                                <div class="course-note">Industry-recognized certification. Training material is free, you only pay for the exam.</div>
+                                <div class="course-notes-toggle" onclick="toggleNotes(this)">+ Add personal notes</div>
+                                <div class="course-notes-area"><textarea placeholder="Your notes..." data-note="azure-cert" oninput="saveNotes()"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="week-block">
+                        <div class="week-title">
+                            <h4>Week 23-24: Career Positioning</h4>
+                        </div>
+                        <div class="course-item" data-course="portfolio">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title">Polish GitHub portfolio (3+ AI projects)</div>
+                            </div>
+                        </div>
+                        <div class="course-item" data-course="linkedin">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title">Update LinkedIn with AI skills and project descriptions</div>
+                            </div>
+                        </div>
+                        <div class="course-item" data-course="current-job">
+                            <div class="course-check" onclick="toggleCourse(this)"></div>
+                            <div class="course-body">
+                                <div class="course-title">Propose AI initiatives at current job or start applying</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INFO GRID -->
+            <div id="info-section">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Weekly Time Commitment</h3>
+                        <table class="info-table">
+                            <tr><th>Availability</th><th>Timeline</th></tr>
+                            <tr><td>2-3 hrs/week</td><td>~9-10 months</td></tr>
+                            <tr><td>5-7 hrs/week</td><td>~6 months</td></tr>
+                            <tr><td>10-15 hrs/week</td><td>~3-4 months</td></tr>
+                        </table>
+                    </div>
+                    <div class="info-card">
+                        <h3>Total Cost Breakdown</h3>
+                        <table class="info-table">
+                            <tr><th>Item</th><th>Cost</th></tr>
+                            <tr><td>DeepLearning.AI (8+ courses)</td><td class="free-text">Free</td></tr>
+                            <tr><td>Berkeley MOOC</td><td class="free-text">Free</td></tr>
+                            <tr><td>DataCamp (1-2mo)</td><td>~$39-78</td></tr>
+                            <tr><td>Udemy (on sale)</td><td>~$15-40</td></tr>
+                            <tr><td>Azure cert (opt.)</td><td>~$165</td></tr>
+                            <tr><td>Realistic Total</td><td>$50 - $280</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RULES -->
+            <div class="rules-card">
+                <h3>5 Rules From People Who've Done This</h3>
+                <ol>
+                    <li><strong>Build > Watch.</strong> <span>Every 2 courses, build something. Projects are your proof.</span></li>
+                    <li><strong>Don't go deep on math.</strong> <span>AI Engineering is about integration, not research.</span></li>
+                    <li><strong>Don't quit your job.</strong> <span>This entire plan works alongside full-time work.</span></li>
+                    <li><strong>Use AI at your current job NOW.</strong> <span>Fastest way to get noticed and build real experience.</span></li>
+                    <li><strong>DeepLearning.AI free courses are gold.</strong> <span>Almost everyone recommends starting there.</span></li>
+                </ol>
+            </div>
+
+            <!-- SOURCES -->
+            <details class="sources-card">
+                <summary>Sources & Further Reading</summary>
+                <ul class="sources-list">
+                    <li><a href="https://careery.pro/blog/ai-careers/deeplearning-ai-courses-guide" target="_blank">DeepLearning.AI Courses Guide for AI Engineers (2026) - Careery</a></li>
+                    <li><a href="https://www.deeplearning.ai/courses/" target="_blank">DeepLearning.AI Full Course Catalogue</a></li>
+                    <li><a href="https://www.aitooldiscovery.com/guides/best-ai-courses-reddit" target="_blank">Best AI Courses Reddit 2026 - r/MachineLearning</a></li>
+                    <li><a href="https://datasciencedailyy.medium.com/i-tried-20-ai-engineering-courses-here-are-the-best-5-for-2025-ed5739243b52" target="_blank">I Tried 20+ AI Engineering Courses - Best 5 (Medium)</a></li>
+                    <li><a href="https://medium.com/@coursespeak/the-best-udemy-courses-on-agentic-ai-and-ai-agents-for-2026-hands-on-guide-89050f72c0b6" target="_blank">Best Udemy Courses on Agentic AI for 2026 (Medium)</a></li>
+                    <li><a href="https://www.coursera.org/learn/agentic-ai-with-langgraph-crewai-autogen-and-beeai" target="_blank">Agentic AI with LangGraph, CrewAI, AutoGen - Coursera</a></li>
+                    <li><a href="https://www.datacamp.com/courses/retrieval-augmented-generation-rag-with-langchain" target="_blank">Build RAG Systems with LangChain - DataCamp</a></li>
+                    <li><a href="https://learn.microsoft.com/en-us/training/career-paths/ai-engineer" target="_blank">Microsoft Azure AI Engineer Training Path</a></li>
+                    <li><a href="https://www.classcentral.com/report/best-rag-courses/" target="_blank">12 Best RAG Courses in 2026 - Class Central</a></li>
+                    <li><a href="https://towardsdatascience.com/a-realistic-roadmap-to-start-an-ai-career-in-2026/" target="_blank">A Realistic Roadmap to AI Career 2026 - Towards Data Science</a></li>
+                </ul>
+            </details>
+
+            <footer class="page-footer">
+                <p>Progress is saved in your browser's local storage.</p>
+                <p>Last updated: February 2026</p>
+            </footer>
+
+        </div>
+    </main>
+</div>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav">
+    <a href="#phase-1" class="active" onclick="scrollToPhase('phase-1')">
+        <span class="mobile-nav-icon">&#9783;</span> P1
+    </a>
+    <a href="#phase-2" onclick="scrollToPhase('phase-2')">
+        <span class="mobile-nav-icon">&#9889;</span> P2
+    </a>
+    <a href="#phase-3" onclick="scrollToPhase('phase-3')">
+        <span class="mobile-nav-icon">&#9881;</span> P3
+    </a>
+    <a href="#phase-4" onclick="scrollToPhase('phase-4')">
+        <span class="mobile-nav-icon">&#9733;</span> P4
+    </a>
+    <a href="#timer-section" onclick="scrollToPhase('timer-section')">
+        <span class="mobile-nav-icon">&#9201;</span> Timer
+    </a>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════ STATE ═══════════
+const STORAGE_KEY = 'ai-roadmap-v2';
+let state = loadFromStorage();
+
+function defaultState() {
+    return {
+        courses: {},
+        notes: {},
+        startDate: '',
+        pace: 'normal',
+        streak: 0,
+        lastStudyDate: null,
+        totalMinutes: 0,
+        pomodorosToday: 0,
+        lastPomodoroDate: null,
+        badges: [],
+    };
+}
+
+function loadFromStorage() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? { ...defaultState(), ...JSON.parse(raw) } : defaultState();
+    } catch { return defaultState(); }
+}
+
+function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ═══════════ COURSE TRACKING ═══════════
+const phaseMap = {
+    1: ['python-ztm', 'genai-everyone', 'prompt-eng'],
+    2: ['langchain-llm', 'functions-tools', 'chatgpt-api', 'langchain-data', 'datacamp-rag', 'project-1'],
+    3: ['rag-agents', 'crewai', 'coursera-agents', 'udemy-agents', 'project-2'],
+    4: ['berkeley', 'complete-agentic', 'azure-cert', 'portfolio', 'linkedin', 'current-job'],
+};
+
+const courseHours = {
+    'python-ztm': 10, 'genai-everyone': 5, 'prompt-eng': 1.5,
+    'langchain-llm': 1.5, 'functions-tools': 1.5, 'chatgpt-api': 1.5,
+    'langchain-data': 1.5, 'datacamp-rag': 3, 'project-1': 8,
+    'rag-agents': 2, 'crewai': 1.5, 'coursera-agents': 10, 'udemy-agents': 20,
+    'project-2': 10, 'berkeley': 15, 'complete-agentic': 30,
+    'azure-cert': 10, 'portfolio': 4, 'linkedin': 1, 'current-job': 2,
+};
+
+function toggleCourse(el) {
+    el.classList.toggle('done');
+    const item = el.closest('.course-item');
+    const courseId = item.dataset.course;
+    const isDone = el.classList.contains('done');
+
+    item.classList.toggle('is-done', isDone);
+    state.courses[courseId] = isDone;
+
+    // Update streak
+    const today = new Date().toDateString();
+    if (isDone && state.lastStudyDate !== today) {
+        const yesterday = new Date(Date.now() - 86400000).toDateString();
+        state.streak = (state.lastStudyDate === yesterday) ? state.streak + 1 : 1;
+        state.lastStudyDate = today;
+    }
+
+    save();
+    updateAll();
+
+    if (isDone) showToast('Course completed! Keep going!');
+}
+
+// ═══════════ NOTES ═══════════
+function toggleNotes(el) {
+    const area = el.nextElementSibling;
+    area.classList.toggle('open');
+    el.textContent = area.classList.contains('open') ? '- Hide notes' : '+ Add personal notes';
+}
+
+function saveNotes() {
+    document.querySelectorAll('.course-notes-area textarea').forEach(ta => {
+        state.notes[ta.dataset.note] = ta.value;
+    });
+    save();
+}
+
+function loadNotes() {
+    document.querySelectorAll('.course-notes-area textarea').forEach(ta => {
+        if (state.notes[ta.dataset.note]) {
+            ta.value = state.notes[ta.dataset.note];
+            const area = ta.closest('.course-notes-area');
+            const toggle = area.previousElementSibling;
+            if (ta.value.trim()) {
+                area.classList.add('open');
+                toggle.textContent = '- Hide notes';
+            }
+        }
+    });
+}
+
+// ═══════════ PHASES (collapsible) ═══════════
+function togglePhase(header) {
+    header.classList.toggle('expanded');
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+}
+
+// ═══════════ TIMER ═══════════
+let timerInterval = null;
+let timerSeconds = 25 * 60;
+let timerRunning = false;
+
+function toggleTimer() {
+    if (timerRunning) {
+        clearInterval(timerInterval);
+        timerRunning = false;
+        document.getElementById('timerStartBtn').textContent = 'Resume';
+    } else {
+        timerRunning = true;
+        document.getElementById('timerStartBtn').textContent = 'Pause';
+        timerInterval = setInterval(() => {
+            timerSeconds--;
+            updateTimerDisplay();
+            if (timerSeconds <= 0) {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                timerSeconds = 25 * 60;
+                document.getElementById('timerStartBtn').textContent = 'Start';
+
+                // Log pomodoro
+                const today = new Date().toDateString();
+                if (state.lastPomodoroDate !== today) {
+                    state.pomodorosToday = 0;
+                    state.lastPomodoroDate = today;
+                }
+                state.pomodorosToday++;
+                state.totalMinutes += 25;
+
+                // Update streak
+                if (state.lastStudyDate !== today) {
+                    const yesterday = new Date(Date.now() - 86400000).toDateString();
+                    state.streak = (state.lastStudyDate === yesterday) ? state.streak + 1 : 1;
+                    state.lastStudyDate = today;
+                }
+
+                save();
+                updateAll();
+                showToast('Pomodoro complete! Take a 5-min break.');
+                updateTimerDisplay();
+            }
+        }, 1000);
+    }
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    timerSeconds = 25 * 60;
+    document.getElementById('timerStartBtn').textContent = 'Start';
+    updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+    const m = Math.floor(timerSeconds / 60);
+    const s = timerSeconds % 60;
+    document.getElementById('timerDisplay').textContent =
+        `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+// ═══════════ DEADLINE ═══════════
+function updateDeadline() {
+    const input = document.getElementById('startDate');
+    state.startDate = input.value;
+    save();
+    renderDeadline();
+}
+
+function setPace(pace) {
+    state.pace = pace;
+    document.querySelectorAll('.pace-btn').forEach(b => b.classList.toggle('active', b.dataset.pace === pace));
+    save();
+    renderDeadline();
+}
+
+function renderDeadline() {
+    const el = document.getElementById('deadlineDisplay');
+    if (!state.startDate) { el.textContent = 'Set a start date to see your timeline'; return; }
+    const months = { relaxed: 10, normal: 6, intense: 3 };
+    const start = new Date(state.startDate);
+    const end = new Date(start);
+    end.setMonth(end.getMonth() + months[state.pace]);
+    el.innerHTML = `Target completion: <strong>${end.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>`;
+}
+
+// ═══════════ NAVIGATION ═══════════
+function scrollToPhase(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Expand phase if collapsed
+    const header = el?.querySelector('.phase-header');
+    const body = el?.querySelector('.phase-body');
+    if (header && body && !body.classList.contains('open')) {
+        header.classList.add('expanded');
+        body.classList.add('open');
+    }
+    // Close mobile sidebar
+    document.getElementById('sidebar').classList.remove('mobile-open');
+}
+
+// ═══════════ BADGES ═══════════
+function checkBadges() {
+    const completed = Object.keys(state.courses).filter(k => state.courses[k]);
+    const newBadges = [...state.badges];
+
+    if (completed.length >= 1 && !newBadges.includes('first-check')) {
+        newBadges.push('first-check');
+        showToast('Badge earned: First Step!');
+    }
+    if (phaseMap[1].every(c => state.courses[c]) && !newBadges.includes('phase-1-done')) {
+        newBadges.push('phase-1-done');
+        showToast('Badge earned: Foundations Complete!');
+    }
+    if (phaseMap[2].every(c => state.courses[c]) && !newBadges.includes('phase-2-done')) {
+        newBadges.push('phase-2-done');
+        showToast('Badge earned: Core Skills Done!');
+    }
+    if ((state.courses['project-1'] || state.courses['project-2']) && !newBadges.includes('first-project')) {
+        newBadges.push('first-project');
+        showToast('Badge earned: First Project Built!');
+    }
+    if (phaseMap[3].filter(c => state.courses[c]).length >= 4 && !newBadges.includes('phase-3-done')) {
+        newBadges.push('phase-3-done');
+        showToast('Badge earned: Agent Master!');
+    }
+    if (phaseMap[4].filter(c => state.courses[c]).length >= 4 && !newBadges.includes('phase-4-done')) {
+        newBadges.push('phase-4-done');
+        showToast('Badge earned: Roadmap Complete!');
+    }
+    if (state.streak >= 7 && !newBadges.includes('streak-7')) {
+        newBadges.push('streak-7');
+        showToast('Badge earned: 7-Day Streak!');
+    }
+    if (state.totalMinutes >= 600 && !newBadges.includes('ten-hours')) {
+        newBadges.push('ten-hours');
+        showToast('Badge earned: 10 Hours Logged!');
+    }
+
+    state.badges = newBadges;
+    save();
+
+    document.querySelectorAll('.badge-item').forEach(el => {
+        el.classList.toggle('earned', state.badges.includes(el.dataset.badge));
+    });
+}
+
+// ═══════════ UPDATE ALL ═══════════
+function updateAll() {
+    const allCourses = document.querySelectorAll('.course-item');
+    const totalCount = allCourses.length;
+    const doneCount = Object.keys(state.courses).filter(k => state.courses[k]).length;
+    const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+
+    // Dashboard
+    document.getElementById('statCompleted').textContent = doneCount;
+    document.getElementById('statPercent').textContent = pct + '%';
+    document.getElementById('statStreak').textContent = state.streak;
+    const hrs = Math.round(state.totalMinutes / 60);
+    document.getElementById('statHours').textContent = hrs + 'h';
+
+    // Progress bar
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `${doneCount} / ${totalCount} items`;
+
+    // Phase counts
+    [1, 2, 3, 4].forEach(p => {
+        const items = phaseMap[p];
+        const done = items.filter(c => state.courses[c]).length;
+        const el = document.getElementById(`phase${p}Count`);
+        el.textContent = `${done} / ${items.length}`;
+        el.classList.toggle('empty', done === 0);
+
+        // Phase dots
+        const dot = document.getElementById(`phaseDot${p}`);
+        dot.classList.remove('dot-completed', 'dot-active');
+        if (done === items.length) dot.classList.add('dot-completed');
+        else if (done > 0) dot.classList.add('dot-active');
+
+        // Nav
+        const navItem = document.querySelector(`[data-nav="phase-${p}"]`);
+        if (navItem) navItem.classList.toggle('nav-completed', done === items.length);
+    });
+
+    // Pomodoro display
+    const today = new Date().toDateString();
+    const pomToday = state.lastPomodoroDate === today ? state.pomodorosToday : 0;
+    document.getElementById('pomodorosToday').textContent = pomToday;
+
+    // Hours circle
+    const totalHrs = state.totalMinutes / 60;
+    const maxHrs = 65;
+    const hPct = Math.min(totalHrs / maxHrs, 1);
+    const circumference = 138.2;
+    document.getElementById('hoursCircle').style.strokeDashoffset = circumference * (1 - hPct);
+    document.getElementById('hoursPercent').textContent = Math.round(hPct * 100) + '%';
+    document.getElementById('hoursDone').textContent = Math.round(totalHrs);
+
+    checkBadges();
+}
+
+// ═══════════ TOAST ═══════════
+let toastTimeout;
+function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ═══════════ INIT ═══════════
+function init() {
+    // Restore course checks
+    Object.keys(state.courses).forEach(courseId => {
+        if (state.courses[courseId]) {
+            const item = document.querySelector(`[data-course="${courseId}"]`);
+            if (item) {
+                const check = item.querySelector('.course-check');
+                if (check) {
+                    check.classList.add('done');
+                    item.classList.add('is-done');
+                }
+            }
+        }
+    });
+
+    // Restore notes
+    loadNotes();
+
+    // Restore date & pace
+    if (state.startDate) document.getElementById('startDate').value = state.startDate;
+    document.querySelectorAll('.pace-btn').forEach(b => b.classList.toggle('active', b.dataset.pace === state.pace));
+    renderDeadline();
+
+    // Reset pomodoros if new day
+    const today = new Date().toDateString();
+    if (state.lastPomodoroDate !== today) state.pomodorosToday = 0;
+
+    // Check streak continuity
+    if (state.lastStudyDate) {
+        const last = new Date(state.lastStudyDate);
+        const now = new Date();
+        const diffDays = Math.floor((now - last) / 86400000);
+        if (diffDays > 1) state.streak = 0;
+    }
+
+    save();
+    updateAll();
+}
+
+init();
+</script>
+
+</body>
+</html>
