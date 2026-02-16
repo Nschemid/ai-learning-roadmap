@@ -844,6 +844,23 @@
 
         .news-card-link:hover { text-decoration: underline; }
 
+        .news-type-badge {
+            font-size: 0.62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 7px;
+            border-radius: 4px;
+        }
+
+        .type-article { background: #dbeafe; color: #2563eb; }
+        .type-video { background: #fee2e2; color: #dc2626; }
+        .type-reddit { background: #ffedd5; color: #ea580c; }
+
+        [data-theme="dark"] .type-article { background: rgba(37,99,235,0.15); color: #60a5fa; }
+        [data-theme="dark"] .type-video { background: rgba(220,38,38,0.15); color: #f87171; }
+        [data-theme="dark"] .type-reddit { background: rgba(234,88,12,0.15); color: #fb923c; }
+
         .news-error {
             text-align: center;
             padding: 40px 20px;
@@ -1676,15 +1693,14 @@
     <div id="news-view" class="tab-view">
         <div class="news-header">
             <h2>AI News Feed</h2>
-            <p>Stay current with the latest in AI. Fetched live from top sources.</p>
+            <p>Articles, YouTube videos, and Reddit threads - all in one place. Fetched live.</p>
         </div>
 
         <div class="news-filters">
             <button class="news-filter active" data-source="all" onclick="filterNews('all')">All</button>
-            <button class="news-filter" data-source="techcrunch" onclick="filterNews('techcrunch')">TechCrunch</button>
-            <button class="news-filter" data-source="theverge" onclick="filterNews('theverge')">The Verge</button>
-            <button class="news-filter" data-source="arstechnica" onclick="filterNews('arstechnica')">Ars Technica</button>
-            <button class="news-filter" data-source="mit" onclick="filterNews('mit')">MIT News</button>
+            <button class="news-filter" data-source="article" onclick="filterNews('article')">Articles</button>
+            <button class="news-filter" data-source="video" onclick="filterNews('video')">YouTube</button>
+            <button class="news-filter" data-source="reddit" onclick="filterNews('reddit')">Reddit</button>
         </div>
 
         <div class="news-refresh">
@@ -1800,10 +1816,21 @@ function switchTab(tab) {
 
 // ─── NEWS FEEDS ───
 const RSS_FEEDS = [
-    { name: 'TechCrunch', key: 'techcrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
-    { name: 'The Verge', key: 'theverge', url: 'https://www.theverge.com/rss/index.xml' },
-    { name: 'Ars Technica', key: 'arstechnica', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
-    { name: 'MIT News', key: 'mit', url: 'https://news.mit.edu/topic/artificial-intelligence2/rss.xml' }
+    // News sites
+    { name: 'TechCrunch', type: 'article', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
+    { name: 'The Verge', type: 'article', url: 'https://www.theverge.com/rss/index.xml' },
+    { name: 'Ars Technica', type: 'article', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
+    { name: 'MIT News', type: 'article', url: 'https://news.mit.edu/topic/artificial-intelligence2/rss.xml' },
+    // YouTube channels
+    { name: 'Fireship', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA' },
+    { name: 'Two Minute Papers', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg' },
+    { name: 'Matt Wolfe', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UChpleBmo18P08aKCIgti38g' },
+    { name: 'TheAIGRID', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbY9xX3_jW5c2fjlZVBI4cg' },
+    { name: 'AI Explained', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCgfe2ooZD3VJPB6aJAnuQng' },
+    // Reddit
+    { name: 'r/MachineLearning', type: 'reddit', url: 'https://www.reddit.com/r/MachineLearning/hot.rss' },
+    { name: 'r/ArtificialIntelligence', type: 'reddit', url: 'https://www.reddit.com/r/ArtificialIntelligence/hot.rss' },
+    { name: 'r/LocalLLaMA', type: 'reddit', url: 'https://www.reddit.com/r/LocalLLaMA/hot.rss' }
 ];
 
 let newsArticles = [];
@@ -1811,32 +1838,39 @@ let activeFilter = 'all';
 
 async function fetchFeed(feed) {
     try {
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&count=10`;
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&count=8`;
         const res = await fetch(apiUrl);
         const data = await res.json();
         if (data.status !== 'ok') return [];
         return data.items.map(item => ({
-            title: item.title,
+            title: cleanTitle(item.title),
             link: item.link,
-            description: stripHtml(item.description || ''),
+            description: stripHtml(item.description || item.content || ''),
             date: new Date(item.pubDate),
             source: feed.name,
-            sourceKey: feed.key
+            type: feed.type
         }));
     } catch {
         return [];
     }
 }
 
+function cleanTitle(title) {
+    // Clean up Reddit-style titles and HTML entities
+    return title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
+}
+
 function stripHtml(html) {
     const tmp = document.createElement('div');
     tmp.innerHTML = html;
-    return tmp.textContent || tmp.innerText || '';
+    const text = tmp.textContent || tmp.innerText || '';
+    // Trim very long Reddit self-text
+    return text.trim();
 }
 
 async function fetchAllFeeds() {
     const container = document.getElementById('news-container');
-    container.innerHTML = '<div class="news-loading"><div class="spinner"></div><div>Loading AI news...</div></div>';
+    container.innerHTML = '<div class="news-loading"><div class="spinner"></div><div>Loading from 12 sources...</div></div>';
 
     const results = await Promise.all(RSS_FEEDS.map(f => fetchFeed(f)));
     newsArticles = results.flat().sort((a, b) => b.date - a.date);
@@ -1849,34 +1883,39 @@ async function fetchAllFeeds() {
     renderNews();
 }
 
-function filterNews(source) {
-    activeFilter = source;
-    document.querySelectorAll('.news-filter').forEach(b => b.classList.toggle('active', b.dataset.source === source));
+function filterNews(type) {
+    activeFilter = type;
+    document.querySelectorAll('.news-filter').forEach(b => b.classList.toggle('active', b.dataset.source === type));
     renderNews();
 }
 
 function renderNews() {
     const container = document.getElementById('news-container');
-    const filtered = activeFilter === 'all' ? newsArticles : newsArticles.filter(a => a.sourceKey === activeFilter);
+    const filtered = activeFilter === 'all' ? newsArticles : newsArticles.filter(a => a.type === activeFilter);
 
     if (filtered.length === 0) {
-        container.innerHTML = '<div class="news-error">No articles found for this source.</div>';
+        container.innerHTML = '<div class="news-error">No content found for this category.</div>';
         return;
     }
 
-    container.innerHTML = filtered.slice(0, 30).map(article => {
+    const typeLabels = { article: 'Article', video: 'Video', reddit: 'Discussion' };
+    const typeCss = { article: 'type-article', video: 'type-video', reddit: 'type-reddit' };
+    const actionLabels = { article: 'Read article', video: 'Watch video', reddit: 'View thread' };
+
+    container.innerHTML = filtered.slice(0, 40).map(article => {
         const desc = article.description.length > 200 ? article.description.slice(0, 200) + '...' : article.description;
         const dateStr = formatDate(article.date);
         return `
             <div class="news-card">
                 <div class="news-card-meta">
+                    <span class="news-type-badge ${typeCss[article.type]}">${typeLabels[article.type]}</span>
                     <span class="news-source">${article.source}</span>
                     <span class="news-date">${dateStr}</span>
                 </div>
                 <h3><a href="${article.link}" target="_blank" rel="noopener">${article.title}</a></h3>
                 ${desc ? `<div class="news-card-desc">${desc}</div>` : ''}
                 <a class="news-card-link" href="${article.link}" target="_blank" rel="noopener">
-                    Read article &rarr;
+                    ${actionLabels[article.type]} &rarr;
                 </a>
             </div>
         `;
