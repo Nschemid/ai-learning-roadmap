@@ -12,32 +12,141 @@
 
         body {
             font-family: 'Inter', system-ui, sans-serif;
-            background: #fafafa;
-            color: #1a1a1a;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            transition: background 0.3s, color 0.3s;
         }
+
+        /* ─── LIGHT THEME (default) ─── */
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --card: white;
+            --card-border: #e8e8e8;
+            --card-hover: #ccc;
+            --header-bg: white;
+            --header-border: #e5e5e5;
+            --progress-bg: #eee;
+            --tag-bg: #f3f3f3;
+            --tag-color: #777;
+            --goal-bg: #f5f5f5;
+            --goal-border: #ddd;
+            --btn-bg: #111;
+            --btn-hover: #333;
+            --connector: #e0e0e0;
+            --check-border: #d0d0d0;
+            --info-divider: #f5f5f5;
+            --rules-bg: #fffbeb;
+            --rules-border: #fde68a;
+            --sources-bg: white;
+            --footer-border: #eee;
+            --project-bg: linear-gradient(135deg, #f8f7ff, #f0fdfe);
+            --project-border: #c4b5fd;
+            --project-tip-bg: rgba(109, 92, 255, 0.06);
+            --or-color: #bbb;
+        }
+
+        /* ─── DARK THEME ─── */
+        [data-theme="dark"] {
+            --bg: #0f0f14;
+            --text: #e8e8f0;
+            --text-secondary: #a0a0b5;
+            --text-muted: #6b6b80;
+            --card: #1a1a24;
+            --card-border: #2a2a3a;
+            --card-hover: #3a3a4a;
+            --header-bg: #14141c;
+            --header-border: #2a2a3a;
+            --progress-bg: #2a2a3a;
+            --tag-bg: #252535;
+            --tag-color: #999;
+            --goal-bg: #1a1a24;
+            --goal-border: #333;
+            --btn-bg: #6d5cff;
+            --btn-hover: #5a4ae6;
+            --connector: #2a2a3a;
+            --check-border: #444;
+            --info-divider: #252535;
+            --rules-bg: rgba(245, 158, 11, 0.06);
+            --rules-border: rgba(245, 158, 11, 0.2);
+            --sources-bg: #1a1a24;
+            --footer-border: #2a2a3a;
+            --project-bg: linear-gradient(135deg, rgba(109,92,255,0.08), rgba(6,182,212,0.06));
+            --project-border: rgba(109,92,255,0.3);
+            --project-tip-bg: rgba(109, 92, 255, 0.1);
+            --or-color: #555;
+        }
+
+        [data-theme="dark"] .tag-free { background: rgba(34,197,94,0.15); }
+        [data-theme="dark"] .pl-1 { background: rgba(109,92,255,0.15); }
+        [data-theme="dark"] .pl-2 { background: rgba(5,150,105,0.15); }
+        [data-theme="dark"] .pl-3 { background: rgba(217,119,6,0.15); }
+        [data-theme="dark"] .pl-4 { background: rgba(8,145,178,0.15); }
+        [data-theme="dark"] .pg-1 { background: rgba(109,92,255,0.08); }
+        [data-theme="dark"] .pg-2 { background: rgba(5,150,105,0.08); }
+        [data-theme="dark"] .pg-3 { background: rgba(217,119,6,0.08); }
+        [data-theme="dark"] .pg-4 { background: rgba(8,145,178,0.08); }
 
         /* ─── HEADER ─── */
         header {
-            background: white;
-            border-bottom: 1px solid #e5e5e5;
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--header-border);
             padding: 32px 24px;
             text-align: center;
+            position: relative;
         }
 
         header h1 {
             font-size: 1.6rem;
             font-weight: 800;
-            color: #111;
+            color: var(--text);
             margin-bottom: 6px;
         }
 
         header p {
-            color: #666;
+            color: var(--text-muted);
             font-size: 0.9rem;
             max-width: 480px;
             margin: 0 auto 20px;
+        }
+
+        /* ─── THEME TOGGLE ─── */
+        .theme-toggle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 24px;
+            border-radius: 100px;
+            border: 2px solid var(--card-border);
+            background: var(--tag-bg);
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle-knob {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #f59e0b;
+            margin-left: 1px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        [data-theme="dark"] .theme-toggle-knob {
+            margin-left: 21px;
+            background: #6d5cff;
         }
 
         .progress-wrap {
@@ -50,13 +159,13 @@
             justify-content: space-between;
             font-size: 0.78rem;
             font-weight: 600;
-            color: #888;
+            color: var(--text-muted);
             margin-bottom: 6px;
         }
 
         .progress-bar {
             height: 8px;
-            background: #eee;
+            background: var(--progress-bg);
             border-radius: 100px;
             overflow: hidden;
         }
@@ -107,18 +216,18 @@
 
         .phase-meta {
             font-size: 0.82rem;
-            color: #888;
+            color: var(--text-muted);
             margin-bottom: 16px;
         }
 
         .phase-goal {
             font-size: 0.85rem;
-            color: #555;
+            color: var(--text-secondary);
             padding: 12px 16px;
-            background: #f5f5f5;
+            background: var(--goal-bg);
             border-radius: 10px;
             margin-bottom: 16px;
-            border-left: 3px solid #ddd;
+            border-left: 3px solid var(--goal-border);
         }
 
         .pg-1 { border-color: #6d5cff; background: #f8f7ff; }
@@ -134,7 +243,7 @@
         .week-title {
             font-size: 0.78rem;
             font-weight: 700;
-            color: #888;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 8px;
@@ -143,15 +252,15 @@
 
         /* ─── COURSE CARD ─── */
         .course {
-            background: white;
-            border: 1px solid #e8e8e8;
+            background: var(--card);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 8px;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, background 0.3s;
         }
 
-        .course:hover { border-color: #ccc; }
+        .course:hover { border-color: var(--card-hover); }
 
         .course-top {
             display: flex;
@@ -162,7 +271,7 @@
         .check {
             width: 22px;
             height: 22px;
-            border: 2px solid #d0d0d0;
+            border: 2px solid var(--check-border);
             border-radius: 6px;
             flex-shrink: 0;
             cursor: pointer;
@@ -200,7 +309,7 @@
         .course-name {
             font-size: 0.92rem;
             font-weight: 700;
-            color: #1a1a1a;
+            color: var(--text);
             margin-bottom: 6px;
             line-height: 1.35;
         }
@@ -217,15 +326,15 @@
             font-weight: 600;
             padding: 2px 8px;
             border-radius: 4px;
-            background: #f3f3f3;
-            color: #777;
+            background: var(--tag-bg);
+            color: var(--tag-color);
         }
 
         .tag-free { background: #d1fae5; color: #059669; }
 
         .course-desc {
             font-size: 0.82rem;
-            color: #777;
+            color: var(--text-muted);
             line-height: 1.5;
         }
 
@@ -235,7 +344,7 @@
             gap: 4px;
             margin-top: 10px;
             padding: 7px 16px;
-            background: #111;
+            background: var(--btn-bg);
             color: white;
             text-decoration: none;
             border-radius: 8px;
@@ -244,7 +353,7 @@
             transition: background 0.15s;
         }
 
-        .course-link:hover { background: #333; }
+        .course-link:hover { background: var(--btn-hover); }
 
         .course-link svg {
             width: 14px;
@@ -256,7 +365,7 @@
             text-align: center;
             font-size: 0.72rem;
             font-weight: 700;
-            color: #bbb;
+            color: var(--or-color);
             text-transform: uppercase;
             letter-spacing: 2px;
             padding: 4px 0;
@@ -264,8 +373,8 @@
 
         /* ─── PROJECT CARD ─── */
         .project {
-            background: linear-gradient(135deg, #f8f7ff, #f0fdfe);
-            border: 2px dashed #c4b5fd;
+            background: var(--project-bg);
+            border: 2px dashed var(--project-border);
             border-radius: 12px;
             padding: 18px;
             margin-bottom: 8px;
@@ -282,7 +391,7 @@
 
         .project li {
             font-size: 0.82rem;
-            color: #555;
+            color: var(--text-secondary);
             padding: 3px 0 3px 16px;
             position: relative;
         }
@@ -301,7 +410,7 @@
         .project-tip {
             margin-top: 12px;
             padding: 10px 12px;
-            background: rgba(109, 92, 255, 0.06);
+            background: var(--project-tip-bg);
             border-radius: 8px;
             font-size: 0.78rem;
             color: #6d5cff;
@@ -321,8 +430,8 @@
         @media (max-width: 500px) { .info-grid { grid-template-columns: 1fr; } }
 
         .info-card {
-            background: white;
-            border: 1px solid #e8e8e8;
+            background: var(--card);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
             padding: 18px;
         }
@@ -330,7 +439,7 @@
         .info-card h3 {
             font-size: 0.78rem;
             font-weight: 700;
-            color: #999;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 12px;
@@ -341,7 +450,7 @@
             justify-content: space-between;
             padding: 6px 0;
             font-size: 0.82rem;
-            border-bottom: 1px solid #f5f5f5;
+            border-bottom: 1px solid var(--info-divider);
         }
 
         .info-row:last-child {
@@ -355,8 +464,8 @@
 
         /* ─── RULES ─── */
         .rules {
-            background: #fffbeb;
-            border: 1px solid #fde68a;
+            background: var(--rules-bg);
+            border: 1px solid var(--rules-border);
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
@@ -374,24 +483,24 @@
         .rules li {
             font-size: 0.85rem;
             padding: 4px 0;
-            color: #555;
+            color: var(--text-secondary);
         }
 
-        .rules li strong { color: #1a1a1a; }
+        .rules li strong { color: var(--text); }
 
         /* ─── SOURCES ─── */
         .sources {
             margin-top: 24px;
             padding: 16px;
-            background: white;
-            border: 1px solid #e8e8e8;
+            background: var(--sources-bg);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
         }
 
         .sources summary {
             font-size: 0.78rem;
             font-weight: 700;
-            color: #999;
+            color: var(--text-muted);
             cursor: pointer;
             list-style: none;
         }
@@ -402,7 +511,7 @@
 
         .sources ul { list-style: none; padding: 10px 0 0; }
         .sources li { padding: 2px 0; }
-        .sources a { color: #888; text-decoration: none; font-size: 0.76rem; }
+        .sources a { color: var(--text-muted); text-decoration: none; font-size: 0.76rem; }
         .sources a:hover { color: #6d5cff; }
 
         /* ─── FOOTER ─── */
@@ -410,8 +519,8 @@
             text-align: center;
             padding: 24px;
             font-size: 0.72rem;
-            color: #bbb;
-            border-top: 1px solid #eee;
+            color: var(--text-muted);
+            border-top: 1px solid var(--footer-border);
             margin-top: 32px;
         }
 
@@ -441,7 +550,7 @@
         .connector {
             width: 2px;
             height: 24px;
-            background: #e0e0e0;
+            background: var(--connector);
             margin: 0 auto;
         }
 
@@ -455,6 +564,9 @@
 <body>
 
 <header>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        <div class="theme-toggle-knob"></div>
+    </button>
     <h1>AI Engineer Roadmap</h1>
     <p>Scroll down and follow the path. Check off courses as you complete them. Your progress saves automatically.</p>
     <div class="progress-wrap">
@@ -960,6 +1072,26 @@
 </div>
 
 <script>
+// ─── THEME ───
+function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('ai-roadmap-theme', next);
+}
+
+function loadTheme() {
+    const saved = localStorage.getItem('ai-roadmap-theme');
+    if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+}
+
+loadTheme();
+
+// ─── PROGRESS ───
 const KEY = 'ai-roadmap-v3';
 
 function getState() {
