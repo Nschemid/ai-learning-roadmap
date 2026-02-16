@@ -1816,21 +1816,25 @@ function switchTab(tab) {
 
 // ─── NEWS FEEDS ───
 const RSS_FEEDS = [
-    // News sites
-    { name: 'TechCrunch', type: 'article', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
-    { name: 'The Verge', type: 'article', url: 'https://www.theverge.com/rss/index.xml' },
+    // News sites (AI-specific feeds only)
+    { name: 'TechCrunch AI', type: 'article', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
+    { name: 'The Verge AI', type: 'article', url: 'https://www.theverge.com/rss/ai-artificial-intelligence/index.xml' },
+    { name: 'VentureBeat AI', type: 'article', url: 'https://venturebeat.com/category/ai/feed' },
     { name: 'Ars Technica', type: 'article', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
-    { name: 'MIT News', type: 'article', url: 'https://news.mit.edu/rss/topic/artificial-intelligence2' },
-    // YouTube channels
-    { name: 'Fireship', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA' },
-    { name: 'Two Minute Papers', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg' },
+    { name: 'MIT News AI', type: 'article', url: 'https://news.mit.edu/rss/topic/artificial-intelligence2' },
+    // YouTube - top AI channels by popularity & post frequency
+    { name: 'Matthew Berman', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCawZsQWqfGSbCI5yjkdVkTA' },
     { name: 'Matt Wolfe', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UChpleBmo18P08aKCIgti38g' },
     { name: 'TheAIGRID', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbY9xX3_jW5c2fjlZVBI4cg' },
+    { name: 'Fireship', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA' },
+    { name: 'Two Minute Papers', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg' },
     { name: 'AI Explained', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCgfe2ooZD3VJPB6aJAnuQng' },
-    // Reddit
+    { name: 'AI Jason', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCAnJ6_Zjv7PzVTKtbG8nH8A' },
+    // Reddit - biggest AI communities
+    { name: 'r/ChatGPT', type: 'reddit', url: 'https://www.reddit.com/r/ChatGPT/hot.rss' },
     { name: 'r/MachineLearning', type: 'reddit', url: 'https://www.reddit.com/r/MachineLearning/hot.rss' },
-    { name: 'r/ArtificialIntelligence', type: 'reddit', url: 'https://www.reddit.com/r/ArtificialIntelligence/hot.rss' },
-    { name: 'r/LocalLLaMA', type: 'reddit', url: 'https://www.reddit.com/r/LocalLLaMA/hot.rss' }
+    { name: 'r/LocalLLaMA', type: 'reddit', url: 'https://www.reddit.com/r/LocalLLaMA/hot.rss' },
+    { name: 'r/ArtificialIntelligence', type: 'reddit', url: 'https://www.reddit.com/r/ArtificialIntelligence/hot.rss' }
 ];
 
 let newsArticles = [];
@@ -1870,24 +1874,23 @@ function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function fetchAllFeeds() {
     const container = document.getElementById('news-container');
-    container.innerHTML = '<div class="news-loading"><div class="spinner"></div><div>Loading from 12 sources...</div></div>';
+    container.innerHTML = '<div class="news-loading"><div class="spinner"></div><div>Loading from 16 sources...</div></div>';
     newsArticles = [];
 
-    // Fetch in 3 batches to avoid rss2json rate limits
+    // Fetch in 4 small batches to avoid rss2json free-tier rate limits
     const batches = [
-        RSS_FEEDS.filter(f => f.type === 'article'),
-        RSS_FEEDS.filter(f => f.type === 'video'),
-        RSS_FEEDS.filter(f => f.type === 'reddit')
+        RSS_FEEDS.slice(0, 4),   // first 4 articles
+        RSS_FEEDS.slice(4, 8),   // last article + first 3 YouTube
+        RSS_FEEDS.slice(8, 12),  // last 4 YouTube
+        RSS_FEEDS.slice(12)      // Reddit
     ];
 
     for (let i = 0; i < batches.length; i++) {
         const results = await Promise.all(batches[i].map(f => fetchFeed(f)));
         newsArticles.push(...results.flat());
         newsArticles.sort((a, b) => b.date - a.date);
-        // Show what we have so far
         if (newsArticles.length > 0) renderNews();
-        // Small delay between batches to avoid rate limits
-        if (i < batches.length - 1) await delay(1500);
+        if (i < batches.length - 1) await delay(2000);
     }
 
     if (newsArticles.length === 0) {
