@@ -657,6 +657,224 @@
             margin: 0 auto;
         }
 
+        /* ─── TAB BAR ─── */
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            background: var(--header-bg);
+            border-bottom: 1px solid var(--header-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tab-btn {
+            flex: 1;
+            max-width: 200px;
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+
+        .tab-btn.active {
+            color: var(--text);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 3px;
+            background: linear-gradient(90deg, #6d5cff, #3db9cf);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-view { display: none; }
+        .tab-view.active { display: block; }
+
+        /* ─── NEWS VIEW ─── */
+        .news-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .news-header h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .news-header p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .news-filters {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .news-filter {
+            padding: 5px 14px;
+            border: 1px solid var(--card-border);
+            border-radius: 100px;
+            background: var(--card);
+            color: var(--text-secondary);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .news-filter:hover { border-color: var(--card-hover); }
+
+        .news-filter.active {
+            background: var(--btn-bg);
+            color: white;
+            border-color: var(--btn-bg);
+        }
+
+        .news-loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .news-loading .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--progress-bg);
+            border-top: 3px solid #6d5cff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .news-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.2s, background 0.3s;
+        }
+
+        .news-card:hover { border-color: var(--card-hover); }
+
+        .news-card-meta {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .news-source {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--tag-bg);
+            color: var(--tag-color);
+        }
+
+        .news-date {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .news-card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .news-card h3 a {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .news-card h3 a:hover { color: #6d5cff; }
+
+        .news-card-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6d5cff;
+            text-decoration: none;
+        }
+
+        .news-card-link:hover { text-decoration: underline; }
+
+        .news-error {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .news-refresh {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .news-refresh button {
+            padding: 7px 18px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--text-secondary);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .news-refresh button:hover {
+            border-color: var(--card-hover);
+            background: var(--tag-bg);
+        }
+
         /* ─── RESPONSIVE ─── */
         @media (max-width: 500px) {
             header h1 { font-size: 1.3rem; }
@@ -683,7 +901,15 @@
     </div>
 </header>
 
+<nav class="tab-bar">
+    <button class="tab-btn active" data-tab="roadmap" onclick="switchTab('roadmap')">Roadmap</button>
+    <button class="tab-btn" data-tab="news" onclick="switchTab('news')">AI News</button>
+</nav>
+
 <div class="container">
+
+    <!-- ═══ ROADMAP VIEW ═══ -->
+    <div id="roadmap-view" class="tab-view active">
 
     <!-- ════════════════════════════════════ -->
     <!-- PHASE 1 -->
@@ -1173,8 +1399,8 @@
                     <div class="res-item-desc">12-week, 24-lesson curriculum covering AI fundamentals. Includes quizzes, labs, and hands-on with TensorFlow/PyTorch.</div>
                 </div>
                 <div class="res-item">
-                    <div class="res-item-name"><a href="https://grow.google/ai-essentials/" target="_blank" rel="noopener">Google AI Essentials</a></div>
-                    <div class="res-item-desc">Hands-on intro to generative AI. Practice prompting and real-world applications - no coding needed.</div>
+                    <div class="res-item-name"><a href="https://grow.google/ai-essentials/" target="_blank" rel="noopener">Google AI Essentials</a> <span class="tag" style="font-size:0.65rem">$49/mo after 7-day trial</span></div>
+                    <div class="res-item-desc">Hands-on intro to generative AI on Coursera. Practice prompting and real-world applications - no coding needed. 7-day free trial, then $49/mo.</div>
                 </div>
                 <div class="res-item">
                     <div class="res-item-name"><a href="https://www.deeplearning.ai/courses/" target="_blank" rel="noopener">DeepLearning.AI (with OpenAI)</a></div>
@@ -1208,7 +1434,7 @@
         <details class="res-group">
             <summary>
                 YouTube Channels
-                <span><span class="res-count">8 channels</span> <span class="res-arrow">&#9662;</span></span>
+                <span><span class="res-count">10 channels</span> <span class="res-arrow">&#9662;</span></span>
             </summary>
             <div class="res-group-body">
                 <div class="res-item">
@@ -1242,6 +1468,14 @@
                 <div class="res-item">
                     <div class="res-item-name"><a href="https://www.youtube.com/@aiaborig" target="_blank" rel="noopener">AI Explained</a></div>
                     <div class="res-item-desc">Educational breakdowns of AI news/tools. Great for staying current.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@anthropic-ai" target="_blank" rel="noopener">Anthropic</a></div>
+                    <div class="res-item-desc">Official channel from the makers of Claude. Product demos, safety research, and developer tutorials.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@lexfridman" target="_blank" rel="noopener">Lex Fridman</a></div>
+                    <div class="res-item-desc">Long-form interviews with AI leaders (Sam Altman, Yann LeCun, Ilya Sutskever). Deep dives into AI's future.</div>
                 </div>
                 <div class="res-tip">Subscribe and enable notifications. Start with "Python for AI" playlists on Krish Naik or Tech With Tim.</div>
             </div>
@@ -1383,6 +1617,33 @@
             </div>
         </details>
 
+        <!-- Podcasts -->
+        <details class="res-group">
+            <summary>
+                Podcasts
+                <span><span class="res-count">4 podcasts</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.latent.space/podcast" target="_blank" rel="noopener">Latent Space</a></div>
+                    <div class="res-item-desc">The AI Engineer podcast. Technical deep dives with founders and researchers. Perfect for your AI Engineer career path.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://practicalai.fm/" target="_blank" rel="noopener">Practical AI</a></div>
+                    <div class="res-item-desc">Making AI practical, productive, and accessible. Weekly episodes on real-world applications.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://podcasts.apple.com/us/podcast/the-ai-daily-brief/id1680633614" target="_blank" rel="noopener">The AI Daily Brief</a></div>
+                    <div class="res-item-desc">Quick daily recaps of the most important AI news. Great for your commute or morning routine.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://lexfridman.com/podcast/" target="_blank" rel="noopener">Lex Fridman Podcast</a></div>
+                    <div class="res-item-desc">Long-form conversations with AI/tech leaders. Deep discussions on intelligence, consciousness, and the future.</div>
+                </div>
+                <div class="res-tip">Listen during commutes or workouts. Latent Space + AI Daily Brief is a great combo for staying sharp.</div>
+            </div>
+        </details>
+
         <!-- Daily Routine Tip -->
         <div class="rules" style="margin-top:12px">
             <h3>Daily Learning Routine</h3>
@@ -1408,6 +1669,35 @@
             <li><a href="https://towardsdatascience.com/a-realistic-roadmap-to-start-an-ai-career-in-2026/" target="_blank">Realistic Roadmap to AI Career 2026 - Towards Data Science</a></li>
         </ul>
     </details>
+
+    </div><!-- end roadmap-view -->
+
+    <!-- ═══ NEWS VIEW ═══ -->
+    <div id="news-view" class="tab-view">
+        <div class="news-header">
+            <h2>AI News Feed</h2>
+            <p>Stay current with the latest in AI. Fetched live from top sources.</p>
+        </div>
+
+        <div class="news-filters">
+            <button class="news-filter active" data-source="all" onclick="filterNews('all')">All</button>
+            <button class="news-filter" data-source="techcrunch" onclick="filterNews('techcrunch')">TechCrunch</button>
+            <button class="news-filter" data-source="theverge" onclick="filterNews('theverge')">The Verge</button>
+            <button class="news-filter" data-source="arstechnica" onclick="filterNews('arstechnica')">Ars Technica</button>
+            <button class="news-filter" data-source="mit" onclick="filterNews('mit')">MIT News</button>
+        </div>
+
+        <div class="news-refresh">
+            <button onclick="fetchAllFeeds()">Refresh feeds</button>
+        </div>
+
+        <div id="news-container">
+            <div class="news-loading">
+                <div class="spinner"></div>
+                <div>Loading AI news...</div>
+            </div>
+        </div>
+    </div><!-- end news-view -->
 
     <footer>
         <p>Progress saves in your browser automatically.</p>
@@ -1500,6 +1790,110 @@ function init() {
 }
 
 init();
+
+// ─── TABS ───
+function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.querySelectorAll('.tab-view').forEach(v => v.classList.toggle('active', v.id === tab + '-view'));
+    if (tab === 'news' && newsArticles.length === 0) fetchAllFeeds();
+}
+
+// ─── NEWS FEEDS ───
+const RSS_FEEDS = [
+    { name: 'TechCrunch', key: 'techcrunch', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
+    { name: 'The Verge', key: 'theverge', url: 'https://www.theverge.com/rss/index.xml' },
+    { name: 'Ars Technica', key: 'arstechnica', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
+    { name: 'MIT News', key: 'mit', url: 'https://news.mit.edu/topic/artificial-intelligence2/rss.xml' }
+];
+
+let newsArticles = [];
+let activeFilter = 'all';
+
+async function fetchFeed(feed) {
+    try {
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&count=10`;
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        if (data.status !== 'ok') return [];
+        return data.items.map(item => ({
+            title: item.title,
+            link: item.link,
+            description: stripHtml(item.description || ''),
+            date: new Date(item.pubDate),
+            source: feed.name,
+            sourceKey: feed.key
+        }));
+    } catch {
+        return [];
+    }
+}
+
+function stripHtml(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || '';
+}
+
+async function fetchAllFeeds() {
+    const container = document.getElementById('news-container');
+    container.innerHTML = '<div class="news-loading"><div class="spinner"></div><div>Loading AI news...</div></div>';
+
+    const results = await Promise.all(RSS_FEEDS.map(f => fetchFeed(f)));
+    newsArticles = results.flat().sort((a, b) => b.date - a.date);
+
+    if (newsArticles.length === 0) {
+        container.innerHTML = '<div class="news-error">Could not load feeds right now. Try refreshing in a moment.</div>';
+        return;
+    }
+
+    renderNews();
+}
+
+function filterNews(source) {
+    activeFilter = source;
+    document.querySelectorAll('.news-filter').forEach(b => b.classList.toggle('active', b.dataset.source === source));
+    renderNews();
+}
+
+function renderNews() {
+    const container = document.getElementById('news-container');
+    const filtered = activeFilter === 'all' ? newsArticles : newsArticles.filter(a => a.sourceKey === activeFilter);
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="news-error">No articles found for this source.</div>';
+        return;
+    }
+
+    container.innerHTML = filtered.slice(0, 30).map(article => {
+        const desc = article.description.length > 200 ? article.description.slice(0, 200) + '...' : article.description;
+        const dateStr = formatDate(article.date);
+        return `
+            <div class="news-card">
+                <div class="news-card-meta">
+                    <span class="news-source">${article.source}</span>
+                    <span class="news-date">${dateStr}</span>
+                </div>
+                <h3><a href="${article.link}" target="_blank" rel="noopener">${article.title}</a></h3>
+                ${desc ? `<div class="news-card-desc">${desc}</div>` : ''}
+                <a class="news-card-link" href="${article.link}" target="_blank" rel="noopener">
+                    Read article &rarr;
+                </a>
+            </div>
+        `;
+    }).join('');
+}
+
+function formatDate(date) {
+    const now = new Date();
+    const diff = now - date;
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+
+    if (hours < 1) return 'Just now';
+    if (hours < 24) return hours + 'h ago';
+    if (days < 7) return days + 'd ago';
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
 </script>
 
 </body>
