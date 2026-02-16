@@ -1820,7 +1820,7 @@ const RSS_FEEDS = [
     { name: 'TechCrunch', type: 'article', url: 'https://techcrunch.com/category/artificial-intelligence/feed/' },
     { name: 'The Verge', type: 'article', url: 'https://www.theverge.com/rss/index.xml' },
     { name: 'Ars Technica', type: 'article', url: 'https://feeds.arstechnica.com/arstechnica/technology-lab' },
-    { name: 'MIT News', type: 'article', url: 'https://news.mit.edu/topic/artificial-intelligence2/rss.xml' },
+    { name: 'MIT News', type: 'article', url: 'https://news.mit.edu/rss/topic/artificial-intelligence2' },
     // YouTube channels
     { name: 'Fireship', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA' },
     { name: 'Two Minute Papers', type: 'video', url: 'https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg' },
@@ -1838,7 +1838,7 @@ let activeFilter = 'all';
 
 async function fetchFeed(feed) {
     try {
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}&count=8`;
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
         const res = await fetch(apiUrl);
         const data = await res.json();
         if (data.status !== 'ok') return [];
@@ -1856,7 +1856,6 @@ async function fetchFeed(feed) {
 }
 
 function cleanTitle(title) {
-    // Clean up Reddit-style titles and HTML entities
     return title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#39;/g, "'").replace(/&quot;/g, '"');
 }
 
@@ -1864,23 +1863,36 @@ function stripHtml(html) {
     const tmp = document.createElement('div');
     tmp.innerHTML = html;
     const text = tmp.textContent || tmp.innerText || '';
-    // Trim very long Reddit self-text
     return text.trim();
 }
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function fetchAllFeeds() {
     const container = document.getElementById('news-container');
     container.innerHTML = '<div class="news-loading"><div class="spinner"></div><div>Loading from 12 sources...</div></div>';
+    newsArticles = [];
 
-    const results = await Promise.all(RSS_FEEDS.map(f => fetchFeed(f)));
-    newsArticles = results.flat().sort((a, b) => b.date - a.date);
+    // Fetch in 3 batches to avoid rss2json rate limits
+    const batches = [
+        RSS_FEEDS.filter(f => f.type === 'article'),
+        RSS_FEEDS.filter(f => f.type === 'video'),
+        RSS_FEEDS.filter(f => f.type === 'reddit')
+    ];
+
+    for (let i = 0; i < batches.length; i++) {
+        const results = await Promise.all(batches[i].map(f => fetchFeed(f)));
+        newsArticles.push(...results.flat());
+        newsArticles.sort((a, b) => b.date - a.date);
+        // Show what we have so far
+        if (newsArticles.length > 0) renderNews();
+        // Small delay between batches to avoid rate limits
+        if (i < batches.length - 1) await delay(1500);
+    }
 
     if (newsArticles.length === 0) {
         container.innerHTML = '<div class="news-error">Could not load feeds right now. Try refreshing in a moment.</div>';
-        return;
     }
-
-    renderNews();
 }
 
 function filterNews(type) {
