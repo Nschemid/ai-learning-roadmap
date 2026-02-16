@@ -514,6 +514,109 @@
         .sources a { color: var(--text-muted); text-decoration: none; font-size: 0.76rem; }
         .sources a:hover { color: #6d5cff; }
 
+        /* ─── RESOURCES SECTION ─── */
+        .resources-section {
+            margin-top: 36px;
+            margin-bottom: 24px;
+        }
+
+        .resources-section > h2 {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .resources-section > p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .res-group {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .res-group[open] { border-color: var(--card-hover); }
+
+        .res-group summary {
+            padding: 14px 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            user-select: none;
+        }
+
+        .res-group summary::-webkit-details-marker { display: none; }
+
+        .res-group summary .res-arrow {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .res-group[open] summary .res-arrow { transform: rotate(180deg); }
+
+        .res-group-body {
+            padding: 0 16px 14px;
+        }
+
+        .res-item {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--info-divider);
+        }
+
+        .res-item:last-child { border-bottom: none; }
+
+        .res-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .res-item-name a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px dashed var(--text-muted);
+        }
+
+        .res-item-name a:hover { color: #6d5cff; border-color: #6d5cff; }
+
+        .res-item-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .res-tip {
+            padding: 10px 14px;
+            margin-top: 10px;
+            background: var(--project-tip-bg);
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6d5cff;
+        }
+
+        .res-count {
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 100px;
+            background: var(--tag-bg);
+            color: var(--tag-color);
+        }
+
         /* ─── FOOTER ─── */
         footer {
             text-align: center;
@@ -1049,6 +1152,247 @@
             <li><strong>Use AI at your current job NOW.</strong> Fastest way to get noticed and build real experience.</li>
             <li><strong>DeepLearning.AI free courses are gold.</strong> Almost everyone recommends starting there.</li>
         </ol>
+    </div>
+
+    <!-- ════════════════════════════════════ -->
+    <!-- RESOURCES -->
+    <!-- ════════════════════════════════════ -->
+    <div class="resources-section">
+        <h2>AI Resources & Community</h2>
+        <p>Extra learning materials, YouTube channels, newsletters, and communities to follow. Tap to expand each category.</p>
+
+        <!-- Beginner Fundamentals -->
+        <details class="res-group">
+            <summary>
+                Beginner Fundamentals (Free Courses)
+                <span><span class="res-count">8 resources</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://microsoft.github.io/AI-For-Beginners/" target="_blank" rel="noopener">AI for Beginners (Microsoft)</a></div>
+                    <div class="res-item-desc">12-week, 24-lesson curriculum covering AI fundamentals. Includes quizzes, labs, and hands-on with TensorFlow/PyTorch.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://grow.google/ai-essentials/" target="_blank" rel="noopener">Google AI Essentials</a></div>
+                    <div class="res-item-desc">Hands-on intro to generative AI. Practice prompting and real-world applications - no coding needed.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.deeplearning.ai/courses/" target="_blank" rel="noopener">DeepLearning.AI (with OpenAI)</a></div>
+                    <div class="res-item-desc">Free courses like "AI for Everyone" and "ChatGPT Prompt Engineering for Developers."</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://skillsbuild.org/" target="_blank" rel="noopener">IBM SkillsBuild: AI Fundamentals</a></div>
+                    <div class="res-item-desc">10-hour course on AI basics including NLP and building chatbots. Free certificate upon completion.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.datacamp.com/" target="_blank" rel="noopener">DataCamp: AI Fundamentals Track</a></div>
+                    <div class="res-item-desc">Free intro to AI including Python basics, ML concepts, and projects. Hands-on coding in-browser.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.codecademy.com/" target="_blank" rel="noopener">Codecademy: AI Courses</a></div>
+                    <div class="res-item-desc">Free Python and AI/ChatGPT tracks with interactive coding. Good for learning while doing.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://cs50.harvard.edu/ai/" target="_blank" rel="noopener">Harvard CS50: Intro to AI with Python</a></div>
+                    <div class="res-item-desc">Free course on search algorithms, ML, neural networks, and NLP. Beginner-friendly with projects.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://github.com/microsoft/AI-For-Beginners" target="_blank" rel="noopener">GitHub: AI for Beginners (Microsoft)</a></div>
+                    <div class="res-item-desc">Code examples, notebooks, and datasets for practical learning.</div>
+                </div>
+                <div class="res-tip">Start with 1-2 resources (e.g., Microsoft + Google). Build a simple chatbot to apply what you learn.</div>
+            </div>
+        </details>
+
+        <!-- YouTube -->
+        <details class="res-group">
+            <summary>
+                YouTube Channels
+                <span><span class="res-count">8 channels</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@Deeplearningai" target="_blank" rel="noopener">DeepLearning.AI (Andrew Ng)</a></div>
+                    <div class="res-item-desc">Fundamentals, prompt engineering, and real AI apps. Beginner series like "AI for Everyone."</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@3blue1brown" target="_blank" rel="noopener">3Blue1Brown</a></div>
+                    <div class="res-item-desc">Visual math for AI (neural networks, etc). Engaging animations that make concepts click.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@TwoMinutePapers" target="_blank" rel="noopener">Two Minute Papers</a></div>
+                    <div class="res-item-desc">Quick AI research summaries. Fun, bite-sized updates on breakthroughs.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@krishnaik06" target="_blank" rel="noopener">Krish Naik</a></div>
+                    <div class="res-item-desc">Python for AI, ML tutorials, and developer tips. Practical projects for beginners.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@freecodecamp" target="_blank" rel="noopener">freeCodeCamp</a></div>
+                    <div class="res-item-desc">End-to-end AI tutorials, Python basics, and full courses. Free, no ads.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@sentdex" target="_blank" rel="noopener">Sentdex</a></div>
+                    <div class="res-item-desc">Python for ML, data analysis, and AI projects. Real-world applications.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@TechWithTim" target="_blank" rel="noopener">Tech With Tim</a></div>
+                    <div class="res-item-desc">Python, AI, automation. Beginner-friendly with game/dev projects.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.youtube.com/@aiaborig" target="_blank" rel="noopener">AI Explained</a></div>
+                    <div class="res-item-desc">Educational breakdowns of AI news/tools. Great for staying current.</div>
+                </div>
+                <div class="res-tip">Subscribe and enable notifications. Start with "Python for AI" playlists on Krish Naik or Tech With Tim.</div>
+            </div>
+        </details>
+
+        <!-- Blogs & Newsletters -->
+        <details class="res-group">
+            <summary>
+                Blogs & Newsletters
+                <span><span class="res-count">8 sources</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://openai.com/blog" target="_blank" rel="noopener">OpenAI Blog</a></div>
+                    <div class="res-item-desc">Research, tools, and ethics. Essential for developers.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://deepmind.google/discover/blog/" target="_blank" rel="noopener">DeepMind Blog</a></div>
+                    <div class="res-item-desc">Cutting-edge research and applications from Google DeepMind.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.therundown.ai/" target="_blank" rel="noopener">The Rundown AI</a></div>
+                    <div class="res-item-desc">Daily news with business/dev applications. Practical for developers.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://bensbites.com/" target="_blank" rel="noopener">Ben's Bites</a></div>
+                    <div class="res-item-desc">Daily AI news/tools for builders. Casual, enjoyable read.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.theneurondaily.com/" target="_blank" rel="noopener">The Neuron</a></div>
+                    <div class="res-item-desc">Daily AI news for pros. Balanced for beginners too.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://theresanaiforthat.com/" target="_blank" rel="noopener">There's An AI For That</a></div>
+                    <div class="res-item-desc">Tool discoveries and news. Great for practical updates on new AI tools.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://towardsdatascience.com/" target="_blank" rel="noopener">Towards Data Science</a></div>
+                    <div class="res-item-desc">Tutorials, ethics, and developer-focused articles.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://bair.berkeley.edu/blog/" target="_blank" rel="noopener">Berkeley AI Research (BAIR) Blog</a></div>
+                    <div class="res-item-desc">Academic insights for developers from UC Berkeley researchers.</div>
+                </div>
+                <div class="res-tip">Sign up for 2-3 newsletters (e.g., Rundown + Neuron) for daily digests without overload.</div>
+            </div>
+        </details>
+
+        <!-- Reddit -->
+        <details class="res-group">
+            <summary>
+                Reddit Communities
+                <span><span class="res-count">5 subreddits</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.reddit.com/r/MachineLearning/" target="_blank" rel="noopener">r/MachineLearning</a></div>
+                    <div class="res-item-desc">Technical discussions, papers, tools. 2.6M+ members.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.reddit.com/r/ArtificialIntelligence/" target="_blank" rel="noopener">r/ArtificialIntelligence</a></div>
+                    <div class="res-item-desc">Broad AI news, impacts, and beginner questions. 1.4M+ members.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.reddit.com/r/learnmachinelearning/" target="_blank" rel="noopener">r/LearnMachineLearning</a></div>
+                    <div class="res-item-desc">Beginner-focused with resources and Q&A. Great for asking questions.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.reddit.com/r/artificial/" target="_blank" rel="noopener">r/artificial</a></div>
+                    <div class="res-item-desc">AI news and debates. 1.1M+ members.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.reddit.com/r/datascience/" target="_blank" rel="noopener">r/DataScience</a></div>
+                    <div class="res-item-desc">Intersects with AI - datasets, tools, and projects.</div>
+                </div>
+                <div class="res-tip">Sort by "New" for daily updates. Ask questions like "Best beginner AI project ideas?"</div>
+            </div>
+        </details>
+
+        <!-- News Sites -->
+        <details class="res-group">
+            <summary>
+                News Websites
+                <span><span class="res-count">5 sites</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://techcrunch.com/category/artificial-intelligence/" target="_blank" rel="noopener">TechCrunch (AI Section)</a></div>
+                    <div class="res-item-desc">Daily AI news, startups, tools.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.theinformation.com/" target="_blank" rel="noopener">The Information</a></div>
+                    <div class="res-item-desc">Deep reports on tech/AI business.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.reuters.com/technology/artificial-intelligence/" target="_blank" rel="noopener">Reuters AI Coverage</a></div>
+                    <div class="res-item-desc">Global AI trends and predictions.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://news.mit.edu/topic/artificial-intelligence2" target="_blank" rel="noopener">MIT News - AI</a></div>
+                    <div class="res-item-desc">Academic and research updates from MIT.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://www.forbes.com/ai/" target="_blank" rel="noopener">Forbes AI</a></div>
+                    <div class="res-item-desc">Business strategies and trends in AI.</div>
+                </div>
+                <div class="res-tip">Visit daily or use Feedly to aggregate RSS feeds from these sources.</div>
+            </div>
+        </details>
+
+        <!-- X / Twitter -->
+        <details class="res-group">
+            <summary>
+                X (Twitter) Accounts
+                <span><span class="res-count">5 accounts</span> <span class="res-arrow">&#9662;</span></span>
+            </summary>
+            <div class="res-group-body">
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://x.com/anirudh_twt" target="_blank" rel="noopener">@anirudh_twt (Ani)</a></div>
+                    <div class="res-item-desc">AI resources, tutorials, and vibes for devs.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://x.com/_vmlops" target="_blank" rel="noopener">@_vmlops (Vaishnavi)</a></div>
+                    <div class="res-item-desc">MLOps, GitHub repos for beginners.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://x.com/DAIEvolutionHub" target="_blank" rel="noopener">@DAIEvolutionHub (Kshitij Mishra)</a></div>
+                    <div class="res-item-desc">AI roadmaps, tools, resources.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://x.com/CodeByPoonam" target="_blank" rel="noopener">@CodeByPoonam (Poonam Soni)</a></div>
+                    <div class="res-item-desc">Free AI courses, news.</div>
+                </div>
+                <div class="res-item">
+                    <div class="res-item-name"><a href="https://x.com/sanchoyai" target="_blank" rel="noopener">@sanchoyai (Sanchoy Hossain)</a></div>
+                    <div class="res-item-desc">AI tools, Harvard courses.</div>
+                </div>
+                <div class="res-tip">Turn on notifications for key accounts. Engage in threads for networking.</div>
+            </div>
+        </details>
+
+        <!-- Daily Routine Tip -->
+        <div class="rules" style="margin-top:12px">
+            <h3>Daily Learning Routine</h3>
+            <ol>
+                <li><strong>15-30 min daily:</strong> Check newsletters, X, and Reddit for AI updates.</li>
+                <li><strong>Build projects:</strong> Apply what you learn from YouTube tutorials and courses.</li>
+                <li><strong>Join a community:</strong> Discord/Slack groups from subreddits or YouTube channels.</li>
+                <li><strong>Track progress:</strong> Use this page's checkboxes or keep a journal/Notion.</li>
+            </ol>
+        </div>
     </div>
 
     <details class="sources">
